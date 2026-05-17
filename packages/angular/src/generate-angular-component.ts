@@ -104,7 +104,7 @@ export const createAngularComponentDefinition = (
     proxyCmpOptions.push(`\n  inputs: [${proxyCmpFormattedInputs}]`);
   }
 
-  if (hasMethods) {
+  if (hasMethods && !useSignals) {
     proxyCmpOptions.push(`\n  methods: [${formattedMethods}]`);
   }
 
@@ -119,18 +119,18 @@ export const createAngularComponentDefinition = (
   );
 
   const outputDeclarations = events
-        .filter((event) => !event.internal)
-        .map((event) => {
-          const camelCaseOutput = event.name.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+    .filter((event) => !event.internal)
+    .map((event) => {
+      const camelCaseOutput = event.name.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 
-          if (useSignals) {
-            const signalOutputType = `CustomEvent<${formatOutputType(tagNameAsPascal, event)}>`;
-            return `readonly ${camelCaseOutput} = output<${signalOutputType}>();`;
-          }
+      if (useSignals) {
+        const signalOutputType = `CustomEvent<${formatOutputType(tagNameAsPascal, event)}>`;
+        return `readonly ${camelCaseOutput} = output<${signalOutputType}>();`;
+      }
 
-          const outputType = `EventEmitter<CustomEvent<${formatOutputType(tagNameAsPascal, event)}>>`;
-          return `@Output() ${camelCaseOutput} = new ${outputType}();`;
-        });
+      const outputType = `EventEmitter<CustomEvent<${formatOutputType(tagNameAsPascal, event)}>>`;
+      return `@Output() ${camelCaseOutput} = new ${outputType}();`;
+    });
 
   // Signals: input<T>() / input.required<T>()
   const signalInputDeclarations = useSignals
@@ -165,7 +165,7 @@ export const createAngularComponentDefinition = (
   template: '<ng-content></ng-content>',${standaloneOption}
 })`;
     constructor = `constructor(r: ElementRef) {
-        this.el = r.nativeElement;${signalEffects}${hasOutputs ? `\n    proxyOutputs(this, this.el, [${formattedOutputs}]);` : ''}
+    this.el = r.nativeElement;${signalEffects}
   }`;
   } else {
     componentDecorator = `@Component({
@@ -301,22 +301,18 @@ export const createComponentTypeDefinition = (
     customElementsDir,
     outputType,
   });
-  // In signals mode, outputs are OutputEmitterRef not EventEmitter — skip re-declaration to avoid TS conflicts
-  const eventTypes = useSignals
-    ? []
-    : publicEvents.map((event) =>
-        createPropertyDeclaration(event, `EventEmitter<CustomEvent<${formatOutputType(tagNameAsPascal, event)}>>`)
-      );
 
-  // In signals mode, inputs are InputSignal<T | undefined> which conflicts with Components.X typed properties
-  // Use Omit to remove conflicting input keys from the extended interface
-  const inputKeys = inputs.map((i) => `'${i.name}'`).join(' | ');
-  const extendsType =
-    useSignals && inputs.length > 0
-      ? `Omit<Components.${tagNameAsPascal}, ${inputKeys}>`
-      : `Components.${tagNameAsPascal}`;
+  // In signals mode — class has full typing via input<T>(), output<T>() and explicit method wrappers
+  // No interface needed, only return event type imports if any
+  if (useSignals) {
+    return eventTypeImports.length > 0 ? eventTypeImports : '';
+  }
 
-  const interfaceDeclaration = `export declare interface ${tagNameAsPascal} extends ${extendsType} {`;
+  const eventTypes = publicEvents.map((event) =>
+    createPropertyDeclaration(event, `EventEmitter<CustomEvent<${formatOutputType(tagNameAsPascal, event)}>>`)
+  );
+
+  const interfaceDeclaration = `export declare interface ${tagNameAsPascal} extends Components.${tagNameAsPascal} {`;
 
   const typeDefinition =
     (eventTypeImports.length > 0 ? `${eventTypeImports + '\n\n'}` : '') +

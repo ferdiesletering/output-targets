@@ -150,7 +150,7 @@ export function generateProxies(
   /**
    * The collection of named imports from the angular-component-lib/utils.
    */
-  const componentLibImports = ['ProxyCmp', 'proxyOutputs'];
+  const componentLibImports = ['ProxyCmp'];
 
   if (includeSingleComponentAngularModules) {
     angularCoreImports.push('NgModule');

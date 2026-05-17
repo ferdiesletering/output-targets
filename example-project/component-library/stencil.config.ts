@@ -66,7 +66,7 @@ export const config: Config = {
       directivesProxyFile: '../component-library-angular/projects/library/src/directives/proxies.ts',
       valueAccessorConfigs: angularValueAccessorBindings,
       transformTag: true,
-      useSignals: false
+      useSignals: true
     }),
     reactOutputTarget({
       outDir: '../component-library-react/src',
