@@ -137,18 +137,20 @@ export function generateProxies(
   /**
    * The collection of named imports from @angular/core.
    */
-  const angularCoreImports = ['ChangeDetectionStrategy', 'ChangeDetectorRef', 'Component', 'ElementRef'];
+  const angularCoreImports = ['ChangeDetectionStrategy', 'Component', 'ElementRef'];
 
-  if (includeOutputImports) {
-    angularCoreImports.push('EventEmitter', 'Output');
+  if (outputTarget.useSignals) {
+    angularCoreImports.push('effect', 'input');
+    if (includeOutputImports) angularCoreImports.push('output');
+  } else {
+    angularCoreImports.push('ChangeDetectorRef');
+    if (includeOutputImports) angularCoreImports.push('EventEmitter', 'Output', 'NgZone');
   }
-
-  angularCoreImports.push('NgZone');
 
   /**
    * The collection of named imports from the angular-component-lib/utils.
    */
-  const componentLibImports = ['ProxyCmp'];
+  const componentLibImports = ['ProxyCmp', 'proxyOutputs'];
 
   if (includeSingleComponentAngularModules) {
     angularCoreImports.push('NgModule');
@@ -245,7 +247,8 @@ ${createImportStatement(componentLibImports, './angular-component-lib/utils')}\n
       isCustomElementsBuild,
       isStandaloneBuild,
       inlineComponentProps,
-      cmpMeta.events || []
+      cmpMeta.events || [],
+      outputTarget.useSignals ?? false
     );
     const moduleDefinition = generateAngularModuleForComponent(cmpMeta.tagName);
     const componentTypeDefinition = createComponentTypeDefinition(
@@ -253,7 +256,9 @@ ${createImportStatement(componentLibImports, './angular-component-lib/utils')}\n
       tagNameAsPascal,
       cmpMeta.events,
       componentCorePackage,
-      customElementsDir
+      customElementsDir,
+      outputTarget.useSignals ?? false,
+      orderedInputs
     );
 
     proxyFileOutput.push(componentDefinition, '\n');
@@ -289,10 +294,16 @@ export function generateComponentProxy(
   const hasOutputs = cmpMeta.events?.some((event) => !event.internal);
 
   // Angular core imports for this component
-  const angularCoreImports = ['ChangeDetectionStrategy', 'ChangeDetectorRef', 'Component', 'ElementRef', 'NgZone'];
-  if (hasOutputs) {
-    angularCoreImports.push('EventEmitter', 'Output');
+  const angularCoreImports = ['ChangeDetectionStrategy', 'Component', 'ElementRef'];
+
+  if (outputTarget.useSignals) {
+    angularCoreImports.push('effect', 'input');
+    if (hasOutputs) angularCoreImports.push('output');
+  } else {
+    angularCoreImports.push('ChangeDetectorRef', 'NgZone');
+    if (hasOutputs) angularCoreImports.push('EventEmitter', 'Output');
   }
+
   if (includeSingleComponentAngularModules) {
     angularCoreImports.push('NgModule');
   }
@@ -349,7 +360,8 @@ ${createImportStatement(['ProxyCmp'], './angular-component-lib/utils')}\n`;
     isCustomElementsBuild,
     isStandaloneBuild,
     inlineComponentProps,
-    cmpMeta.events || []
+    cmpMeta.events || [],
+    outputTarget.useSignals ?? false
   );
 
   const moduleDefinition = generateAngularModuleForComponent(cmpMeta.tagName);
@@ -359,7 +371,9 @@ ${createImportStatement(['ProxyCmp'], './angular-component-lib/utils')}\n`;
     tagNameAsPascal,
     cmpMeta.events,
     componentCorePackage,
-    customElementsDir
+    customElementsDir,
+    outputTarget.useSignals ?? false,
+    orderedInputs
   );
 
   const proxyFileOutput = [componentDefinition, '\n'];

@@ -71,10 +71,10 @@ export const createAngularComponentDefinition = (
   includeImportCustomElements = false,
   standalone = false,
   inlineComponentProps: readonly ComponentCompilerProperty[] = [],
-  events: readonly ComponentCompilerEvent[] = []
+  events: readonly ComponentCompilerEvent[] = [],
+  useSignals = false
 ) => {
   const tagNameAsPascal = dashToPascalCase(tagName);
-
   const outputs = events.filter((event) => !event.internal).map((event) => event.name);
 
   const hasInputs = inputs.length > 0;
@@ -99,7 +99,8 @@ export const createAngularComponentDefinition = (
     proxyCmpOptions.push(`\n  defineCustomElementFn: ${defineCustomElementFn}`);
   }
 
-  if (hasInputs) {
+  // In signals mode, inputs are handled via signal input() + effect(), not proxyInputs via NgZone
+  if (hasInputs && !useSignals) {
     proxyCmpOptions.push(`\n  inputs: [${proxyCmpFormattedInputs}]`);
   }
 
@@ -118,18 +119,67 @@ export const createAngularComponentDefinition = (
   );
 
   const outputDeclarations = events
-    .filter((event) => !event.internal)
-    .map((event) => {
-      const camelCaseOutput = event.name.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-      const outputType = `EventEmitter<CustomEvent<${formatOutputType(tagNameAsPascal, event)}>>`;
-      return `@Output() ${camelCaseOutput} = new ${outputType}();`;
-    });
+        .filter((event) => !event.internal)
+        .map((event) => {
+          const camelCaseOutput = event.name.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+
+          if (useSignals) {
+            const signalOutputType = `CustomEvent<${formatOutputType(tagNameAsPascal, event)}>`;
+            return `readonly ${camelCaseOutput} = output<${signalOutputType}>();`;
+          }
+
+          const outputType = `EventEmitter<CustomEvent<${formatOutputType(tagNameAsPascal, event)}>>`;
+          return `@Output() ${camelCaseOutput} = new ${outputType}();`;
+        });
+
+  // Signals: input<T>() / input.required<T>()
+  const signalInputDeclarations = useSignals
+    ? inputs.map((input) => {
+        const type = `Components.${tagNameAsPascal}['${input.name}']`;
+        return input.required
+          ? `readonly ${input.name} = input.required<${type}>();`
+          : `readonly ${input.name} = input<${type}>();`;
+      })
+    : [];
+
+  // Signals: effect() to sync signal values → custom element properties
+  const signalEffects =
+    useSignals && hasInputs
+      ? `\n    effect(() => {\n${inputs.map((i) => `      this.el['${i.name}'] = this.${i.name}() as Components.${tagNameAsPascal}['${i.name}'];`).join('\n')}\n    });`
+      : '';
 
   const propertiesDeclarationText = [
     `protected el: HTML${tagNameAsPascal}Element;`,
     ...propertyDeclarations,
+    ...signalInputDeclarations,
     ...outputDeclarations,
   ].join('\n  ');
+
+  let componentDecorator: string;
+  let constructor: string;
+
+  if (useSignals) {
+    componentDecorator = `@Component({
+  selector: '${tagName}',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',${standaloneOption}
+})`;
+    constructor = `constructor(r: ElementRef) {
+        this.el = r.nativeElement;${signalEffects}${hasOutputs ? `\n    proxyOutputs(this, this.el, [${formattedOutputs}]);` : ''}
+  }`;
+  } else {
+    componentDecorator = `@Component({
+  selector: '${tagName}',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [${formattedInputs}],${hasOutputs ? `\n  outputs: [${formattedOutputs}],` : ''}${standaloneOption}
+})`;
+    constructor = `constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
+    c.detach();
+    this.el = r.nativeElement;
+  }`;
+  }
 
   /**
    * Notes on the generated output:
@@ -139,19 +189,10 @@ export const createAngularComponentDefinition = (
    * having to use the @Input decorator (and manually define the type and default value).
    */
   const output = `@ProxyCmp({${proxyCmpOptions.join(',')}\n})
-@Component({
-  selector: '${tagName}',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [${formattedInputs}],${hasOutputs ? `\n  outputs: [${formattedOutputs}],` : ''}${standaloneOption}
-})
+${componentDecorator}
 export class ${tagNameAsPascal} {
   ${propertiesDeclarationText}
-  constructor(c: ChangeDetectorRef, r: ElementRef, protected z: NgZone) {
-    c.detach();
-    this.el = r.nativeElement;
-  }
+  ${constructor}
 }`;
 
   return output;
@@ -249,7 +290,9 @@ export const createComponentTypeDefinition = (
   tagNameAsPascal: string,
   events: readonly ComponentCompilerEvent[],
   componentCorePackage: string,
-  customElementsDir?: string
+  customElementsDir?: string,
+  useSignals = false,
+  inputs: readonly ComponentInputProperty[] = []
 ) => {
   const publicEvents = events.filter((ev) => !ev.internal);
 
@@ -258,10 +301,22 @@ export const createComponentTypeDefinition = (
     customElementsDir,
     outputType,
   });
-  const eventTypes = publicEvents.map((event) =>
-    createPropertyDeclaration(event, `EventEmitter<CustomEvent<${formatOutputType(tagNameAsPascal, event)}>>`)
-  );
-  const interfaceDeclaration = `export declare interface ${tagNameAsPascal} extends Components.${tagNameAsPascal} {`;
+  // In signals mode, outputs are OutputEmitterRef not EventEmitter — skip re-declaration to avoid TS conflicts
+  const eventTypes = useSignals
+    ? []
+    : publicEvents.map((event) =>
+        createPropertyDeclaration(event, `EventEmitter<CustomEvent<${formatOutputType(tagNameAsPascal, event)}>>`)
+      );
+
+  // In signals mode, inputs are InputSignal<T | undefined> which conflicts with Components.X typed properties
+  // Use Omit to remove conflicting input keys from the extended interface
+  const inputKeys = inputs.map((i) => `'${i.name}'`).join(' | ');
+  const extendsType =
+    useSignals && inputs.length > 0
+      ? `Omit<Components.${tagNameAsPascal}, ${inputKeys}>`
+      : `Components.${tagNameAsPascal}`;
+
+  const interfaceDeclaration = `export declare interface ${tagNameAsPascal} extends ${extendsType} {`;
 
   const typeDefinition =
     (eventTypeImports.length > 0 ? `${eventTypeImports + '\n\n'}` : '') +

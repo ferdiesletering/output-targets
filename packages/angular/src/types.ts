@@ -95,6 +95,8 @@ export interface OutputTargetAngular {
    * @default false
    */
   esModules?: boolean;
+
+  useSignals?: boolean;
 }
 
 export type ValueAccessorTypes = 'text' | 'radio' | 'select' | 'number' | 'boolean';
