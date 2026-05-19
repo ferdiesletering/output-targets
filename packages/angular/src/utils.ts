@@ -162,6 +162,40 @@ export const createComponentEventTypeImports = (
   return imports.join('\n');
 };
 
+/**
+ * Builds the list of named imports from `@angular/core` for a generated Angular component proxy.
+ *
+ * In signals mode, the classic change detection utilities (`ChangeDetectorRef`, `NgZone`) are
+ * omitted in favour of the Angular signals API (`effect`, `input`, `output`).
+ *
+ * @param useSignals Whether the component proxy should use the Angular signals API.
+ * @param includeOutputImports Whether to include output-related imports.
+ *   - Classic mode: includes `EventEmitter` and `Output`.
+ *   - Signals mode: includes `output`.
+ * @returns An ordered list of named imports from `@angular/core`.
+ */
+export function buildAngularCoreImports(useSignals: boolean, includeOutputImports: boolean): string[] {
+  if (useSignals) {
+    return [
+      'ChangeDetectionStrategy',
+      'Component',
+      'ElementRef',
+      'effect',
+      'input',
+      ...(includeOutputImports ? ['output'] : []),
+    ];
+  }
+
+  return [
+    'ChangeDetectionStrategy',
+    'ChangeDetectorRef',
+    'Component',
+    'ElementRef',
+    ...(includeOutputImports ? ['EventEmitter', 'Output'] : []),
+    'NgZone',
+  ];
+}
+
 const EXTENDED_PATH_REGEX = /^\\\\\?\\/;
 const NON_ASCII_REGEX = /[^\x00-\x80]+/;
 const SLASH_REGEX = /\\/g;

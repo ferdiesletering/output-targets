@@ -4,6 +4,7 @@ import {
   createComponentEventTypeImports,
   formatToQuotedList,
   isOutputTypeCustomElementsBuild,
+  buildAngularCoreImports
 } from '../src/utils';
 
 describe('createImportStatement()', () => {
@@ -105,5 +106,66 @@ describe('isOutputTypeCustomElementsBuild', () => {
   });
   it('should return false if the output type is component', () => {
     expect(isOutputTypeCustomElementsBuild('component')).toEqual(false);
+  });
+});
+
+describe('buildAngularCoreImports()', () => {
+  describe('classic mode', () => {
+    it('should return base imports without output imports', () => {
+      const imports = buildAngularCoreImports(false, false);
+      expect(imports).toEqual([
+        'ChangeDetectionStrategy',
+        'ChangeDetectorRef',
+        'Component',
+        'ElementRef',
+        'NgZone',
+      ]);
+    });
+
+    it('should include EventEmitter and Output when includeOutputImports is true', () => {
+      const imports = buildAngularCoreImports(false, true);
+      expect(imports).toEqual([
+        'ChangeDetectionStrategy',
+        'ChangeDetectorRef',
+        'Component',
+        'ElementRef',
+        'EventEmitter',
+        'Output',
+        'NgZone',
+      ]);
+    });
+  });
+
+  describe('signals mode', () => {
+    it('should return signals imports without output', () => {
+      const imports = buildAngularCoreImports(true, false);
+      expect(imports).toEqual([
+        'ChangeDetectionStrategy',
+        'Component',
+        'ElementRef',
+        'effect',
+        'input',
+      ]);
+    });
+
+    it('should include output when includeOutputImports is true', () => {
+      const imports = buildAngularCoreImports(true, true);
+      expect(imports).toEqual([
+        'ChangeDetectionStrategy',
+        'Component',
+        'ElementRef',
+        'effect',
+        'input',
+        'output',
+      ]);
+    });
+
+    it('should not include NgZone, ChangeDetectorRef, EventEmitter or Output', () => {
+      const imports = buildAngularCoreImports(true, true);
+      expect(imports).not.toContain('NgZone');
+      expect(imports).not.toContain('ChangeDetectorRef');
+      expect(imports).not.toContain('EventEmitter');
+      expect(imports).not.toContain('Output');
+    });
   });
 });

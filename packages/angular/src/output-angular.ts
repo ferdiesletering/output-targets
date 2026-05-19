@@ -11,6 +11,7 @@ import {
   isOutputTypeCustomElementsBuild,
   OutputTypes,
   mapPropName,
+  buildAngularCoreImports,
 } from './utils';
 import { createAngularComponentDefinition, createComponentTypeDefinition } from './generate-angular-component';
 import { generateAngularDirectivesFile } from './generate-angular-directives-file';
@@ -128,6 +129,13 @@ export function generateProxies(
   const distTypesDir = path.dirname(pkgData.types);
   const dtsFilePath = path.join(rootDir, distTypesDir, GENERATED_DTS);
   const { outputType } = outputTarget;
+
+  if (outputTarget.useSignals && outputType === OutputTypes.Scam) {
+    throw new Error(
+      `The "useSignals" option is not compatible with outputType: "scam". Use "standalone" or "component" instead.`
+    );
+  }
+
   const componentsTypeFile = relativeImport(outputTarget.directivesProxyFile, dtsFilePath, '.d.ts');
   const includeSingleComponentAngularModules = outputType === OutputTypes.Scam;
   const isCustomElementsBuild = isOutputTypeCustomElementsBuild(outputType!);
@@ -137,23 +145,7 @@ export function generateProxies(
   /**
    * The collection of named imports from @angular/core.
    */
-  const angularCoreImports = outputTarget.useSignals
-    ? [
-        'ChangeDetectionStrategy',
-        'Component',
-        'ElementRef',
-        'effect',
-        'input',
-        ...(includeOutputImports ? ['output'] : []),
-      ]
-    : [
-        'ChangeDetectionStrategy',
-        'ChangeDetectorRef',
-        'Component',
-        'ElementRef',
-        ...(includeOutputImports ? ['EventEmitter', 'Output'] : []),
-        'NgZone',
-      ];
+  const angularCoreImports = buildAngularCoreImports(outputTarget.useSignals ?? false, includeOutputImports);
 
   /**
    * The collection of named imports from the angular-component-lib/utils.
@@ -303,16 +295,7 @@ export function generateComponentProxy(
   const tagNameAsPascal = dashToPascalCase(cmpMeta.tagName);
   const hasOutputs = cmpMeta.events?.some((event) => !event.internal);
 
-  const angularCoreImports = outputTarget.useSignals
-    ? ['ChangeDetectionStrategy', 'Component', 'ElementRef', 'effect', 'input', ...(hasOutputs ? ['output'] : [])]
-    : [
-        'ChangeDetectionStrategy',
-        'ChangeDetectorRef',
-        'Component',
-        'ElementRef',
-        ...(hasOutputs ? ['EventEmitter', 'Output'] : []),
-        'NgZone',
-      ];
+  const angularCoreImports = buildAngularCoreImports(outputTarget.useSignals ?? false, hasOutputs ?? false);
 
   if (includeSingleComponentAngularModules) {
     angularCoreImports.push('NgModule');

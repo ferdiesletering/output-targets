@@ -168,6 +168,19 @@ describe('generateProxies', () => {
     expect(finalText.includes('EventEmitter')).toBeFalsy();
   });
 
+  it('should throw when useSignals is combined with scam outputType', () => {
+    const outputTarget: OutputTargetAngular = {
+      componentCorePackage: 'component-library',
+      directivesProxyFile: '../component-library-angular/src/proxies.ts',
+      outputType: 'scam',
+      useSignals: true,
+    } as OutputTargetAngular;
+
+    expect(() => generateProxies([], pkgData, outputTarget, rootDir)).toThrow(
+      `The "useSignals" option is not compatible with outputType: "scam". Use "standalone" or "component" instead.`
+    );
+  });
+
   describe('when outputType is scam', () => {
     it('should include an Angular module for each component', () => {
       const outputTarget: OutputTargetAngular = {

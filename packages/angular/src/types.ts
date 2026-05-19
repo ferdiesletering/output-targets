@@ -96,6 +96,21 @@ export interface OutputTargetAngular {
    */
   esModules?: boolean;
 
+  /**
+   * If `true`, the output target will generate Angular component wrappers using the Angular signals API.
+   *
+   * Instead of using `@Input()` and `@Output()` decorators with `ChangeDetectorRef` and `NgZone`,
+   * the generated components will use `input<T>()`, `output<T>()` and `effect()` from `@angular/core`.
+   *
+   * Each input signal gets its own `effect()` so only the changed property is synced to the
+   * underlying custom element, avoiding unnecessary DOM updates.
+   *
+   * > **Note:** This option is not compatible with `outputType: 'scam'`.
+   * > Use `'standalone'` or `'component'` instead.
+   *
+   * @default false
+   * @beta
+   */
   useSignals?: boolean;
 }
 
