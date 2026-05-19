@@ -109,6 +109,65 @@ describe('generateProxies', () => {
     expect(finalText.includes(`import { ProxyCmp } from './angular-component-lib/utils';`)).toBeTruthy();
   });
 
+  it('should include signals imports when useSignals is true and component has external event', () => {
+    const outputTarget: OutputTargetAngular = {
+      componentCorePackage: 'component-library',
+      directivesProxyFile: '../component-library-angular/src/proxies.ts',
+      useSignals: true,
+    } as OutputTargetAngular;
+    const components = [
+      {
+        tagName: 'component-with-event',
+        hasEvent: true,
+        events: [
+          {
+            name: 'fake-external-event-name',
+            internal: false,
+            docs: { text: '', tags: [] },
+            complexType: {
+              original: '',
+              resolved: '',
+              references: { fakeReference: { location: 'local', id: '' } },
+            } as ComponentCompilerEventComplexType,
+          },
+        ],
+      },
+    ] as unknown as ComponentCompilerMeta[];
+
+    const finalText = generateProxies(components, pkgData, outputTarget, rootDir);
+    expect(
+      finalText.includes(
+        `import { ChangeDetectionStrategy, Component, ElementRef, effect, input, output } from '@angular/core';`
+      )
+    ).toBeTruthy();
+    expect(finalText.includes(`import { ProxyCmp } from './angular-component-lib/utils';`)).toBeTruthy();
+  });
+
+  it('should not include output import when useSignals is true and component has no external events', () => {
+    const outputTarget: OutputTargetAngular = {
+      componentCorePackage: 'component-library',
+      directivesProxyFile: '../component-library-angular/src/proxies.ts',
+      useSignals: true,
+    } as OutputTargetAngular;
+    const components = [
+      {
+        tagName: 'component-without-events',
+        hasEvent: false,
+        events: [],
+      },
+    ] as unknown as ComponentCompilerMeta[];
+
+    const finalText = generateProxies(components, pkgData, outputTarget, rootDir);
+    expect(
+      finalText.includes(
+        `import { ChangeDetectionStrategy, Component, ElementRef, effect, input } from '@angular/core';`
+      )
+    ).toBeTruthy();
+    expect(finalText.includes('output')).toBeFalsy();
+    expect(finalText.includes('NgZone')).toBeFalsy();
+    expect(finalText.includes('EventEmitter')).toBeFalsy();
+  });
+
   describe('when outputType is scam', () => {
     it('should include an Angular module for each component', () => {
       const outputTarget: OutputTargetAngular = {
@@ -180,7 +239,9 @@ describe('generateComponentProxy', () => {
 
     const result = generateComponentProxy(component, pkgData, outputTarget, rootDir);
 
-    expect(result).toContain("import { defineCustomElement as defineMyComponent } from 'component-library/components/my-component.js';");
+    expect(result).toContain(
+      "import { defineCustomElement as defineMyComponent } from 'component-library/components/my-component.js';"
+    );
     expect(result).toContain("import type { Components } from 'component-library/components';");
     expect(result).toContain('export class MyComponent');
   });
@@ -230,9 +291,7 @@ describe('generateBarrelFile', () => {
   });
 
   it('should include module exports for scam output', () => {
-    const components: ComponentCompilerMeta[] = [
-      { tagName: 'my-button' },
-    ] as unknown as ComponentCompilerMeta[];
+    const components: ComponentCompilerMeta[] = [{ tagName: 'my-button' }] as unknown as ComponentCompilerMeta[];
 
     const outputTarget: OutputTargetAngular = {
       componentCorePackage: 'component-library',
