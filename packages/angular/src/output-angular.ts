@@ -137,15 +137,23 @@ export function generateProxies(
   /**
    * The collection of named imports from @angular/core.
    */
-  const angularCoreImports = ['ChangeDetectionStrategy', 'Component', 'ElementRef'];
-
-  if (outputTarget.useSignals) {
-    angularCoreImports.push('effect', 'input');
-    if (includeOutputImports) angularCoreImports.push('output');
-  } else {
-    angularCoreImports.push('ChangeDetectorRef');
-    if (includeOutputImports) angularCoreImports.push('EventEmitter', 'Output', 'NgZone');
-  }
+  const angularCoreImports = outputTarget.useSignals
+    ? [
+        'ChangeDetectionStrategy',
+        'Component',
+        'ElementRef',
+        'effect',
+        'input',
+        ...(includeOutputImports ? ['output'] : []),
+      ]
+    : [
+        'ChangeDetectionStrategy',
+        'ChangeDetectorRef',
+        'Component',
+        'ElementRef',
+        ...(includeOutputImports ? ['EventEmitter', 'Output'] : []),
+        'NgZone',
+      ];
 
   /**
    * The collection of named imports from the angular-component-lib/utils.
@@ -257,15 +265,17 @@ ${createImportStatement(componentLibImports, './angular-component-lib/utils')}\n
       cmpMeta.events,
       componentCorePackage,
       customElementsDir,
-      outputTarget.useSignals ?? false,
-      orderedInputs
+      outputTarget.useSignals ?? false
     );
 
     proxyFileOutput.push(componentDefinition, '\n');
     if (includeSingleComponentAngularModules) {
       proxyFileOutput.push(moduleDefinition, '\n');
     }
-    proxyFileOutput.push(componentTypeDefinition, '\n');
+
+    if (componentTypeDefinition) {
+      proxyFileOutput.push(componentTypeDefinition, '\n');
+    }
   }
 
   const final: string[] = [imports, typeImports, sourceImports, ...proxyFileOutput];
@@ -293,16 +303,16 @@ export function generateComponentProxy(
   const tagNameAsPascal = dashToPascalCase(cmpMeta.tagName);
   const hasOutputs = cmpMeta.events?.some((event) => !event.internal);
 
-  // Angular core imports for this component
-  const angularCoreImports = ['ChangeDetectionStrategy', 'Component', 'ElementRef'];
-
-  if (outputTarget.useSignals) {
-    angularCoreImports.push('effect', 'input');
-    if (hasOutputs) angularCoreImports.push('output');
-  } else {
-    angularCoreImports.push('ChangeDetectorRef', 'NgZone');
-    if (hasOutputs) angularCoreImports.push('EventEmitter', 'Output');
-  }
+  const angularCoreImports = outputTarget.useSignals
+    ? ['ChangeDetectionStrategy', 'Component', 'ElementRef', 'effect', 'input', ...(hasOutputs ? ['output'] : [])]
+    : [
+        'ChangeDetectionStrategy',
+        'ChangeDetectorRef',
+        'Component',
+        'ElementRef',
+        ...(hasOutputs ? ['EventEmitter', 'Output'] : []),
+        'NgZone',
+      ];
 
   if (includeSingleComponentAngularModules) {
     angularCoreImports.push('NgModule');

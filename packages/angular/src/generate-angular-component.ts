@@ -145,7 +145,13 @@ export const createAngularComponentDefinition = (
   // Signals: effect() to sync signal values → custom element properties
   const signalEffects =
     useSignals && hasInputs
-      ? `\n    effect(() => {\n${inputs.map((i) => `      this.el['${i.name}'] = this.${i.name}() as Components.${tagNameAsPascal}['${i.name}'];`).join('\n')}\n    });`
+      ? '\n' +
+        inputs
+          .map(
+            (i) =>
+              `    effect(() => { this.el['${i.name}'] = this.${i.name}() as Components.${tagNameAsPascal}['${i.name}']; });`
+          )
+          .join('\n')
       : '';
 
   const propertiesDeclarationText = [

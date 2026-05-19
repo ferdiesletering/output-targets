@@ -55,28 +55,23 @@ export class MyButton {
   readonly myFocus = output<CustomEvent<void>>();
   readonly myBlur = output<CustomEvent<void>>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['buttonType'] = this.buttonType() as Components.MyButton['buttonType'];
-      this.el['color'] = this.color() as Components.MyButton['color'];
-      this.el['disabled'] = this.disabled() as Components.MyButton['disabled'];
-      this.el['download'] = this.download() as Components.MyButton['download'];
-      this.el['expand'] = this.expand() as Components.MyButton['expand'];
-      this.el['fill'] = this.fill() as Components.MyButton['fill'];
-      this.el['href'] = this.href() as Components.MyButton['href'];
-      this.el['mode'] = this.mode() as Components.MyButton['mode'];
-      this.el['rel'] = this.rel() as Components.MyButton['rel'];
-      this.el['shape'] = this.shape() as Components.MyButton['shape'];
-      this.el['size'] = this.size() as Components.MyButton['size'];
-      this.el['strong'] = this.strong() as Components.MyButton['strong'];
-      this.el['target'] = this.target() as Components.MyButton['target'];
-      this.el['type'] = this.type() as Components.MyButton['type'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['buttonType'] = this.buttonType() as Components.MyButton['buttonType']; });
+    effect(() => { this.el['color'] = this.color() as Components.MyButton['color']; });
+    effect(() => { this.el['disabled'] = this.disabled() as Components.MyButton['disabled']; });
+    effect(() => { this.el['download'] = this.download() as Components.MyButton['download']; });
+    effect(() => { this.el['expand'] = this.expand() as Components.MyButton['expand']; });
+    effect(() => { this.el['fill'] = this.fill() as Components.MyButton['fill']; });
+    effect(() => { this.el['href'] = this.href() as Components.MyButton['href']; });
+    effect(() => { this.el['mode'] = this.mode() as Components.MyButton['mode']; });
+    effect(() => { this.el['rel'] = this.rel() as Components.MyButton['rel']; });
+    effect(() => { this.el['shape'] = this.shape() as Components.MyButton['shape']; });
+    effect(() => { this.el['size'] = this.size() as Components.MyButton['size']; });
+    effect(() => { this.el['strong'] = this.strong() as Components.MyButton['strong']; });
+    effect(() => { this.el['target'] = this.target() as Components.MyButton['target']; });
+    effect(() => { this.el['type'] = this.type() as Components.MyButton['type']; });
   }
 }
-
-
-export declare interface MyButton extends Omit<Components.MyButton, 'buttonType' | 'color' | 'disabled' | 'download' | 'expand' | 'fill' | 'href' | 'mode' | 'rel' | 'shape' | 'size' | 'strong' | 'target' | 'type'> {}
 
 
 @ProxyCmp({
@@ -106,28 +101,23 @@ export class MyButtonScoped {
   readonly myFocus = output<CustomEvent<void>>();
   readonly myBlur = output<CustomEvent<void>>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['buttonType'] = this.buttonType() as Components.MyButtonScoped['buttonType'];
-      this.el['color'] = this.color() as Components.MyButtonScoped['color'];
-      this.el['disabled'] = this.disabled() as Components.MyButtonScoped['disabled'];
-      this.el['download'] = this.download() as Components.MyButtonScoped['download'];
-      this.el['expand'] = this.expand() as Components.MyButtonScoped['expand'];
-      this.el['fill'] = this.fill() as Components.MyButtonScoped['fill'];
-      this.el['href'] = this.href() as Components.MyButtonScoped['href'];
-      this.el['mode'] = this.mode() as Components.MyButtonScoped['mode'];
-      this.el['rel'] = this.rel() as Components.MyButtonScoped['rel'];
-      this.el['shape'] = this.shape() as Components.MyButtonScoped['shape'];
-      this.el['size'] = this.size() as Components.MyButtonScoped['size'];
-      this.el['strong'] = this.strong() as Components.MyButtonScoped['strong'];
-      this.el['target'] = this.target() as Components.MyButtonScoped['target'];
-      this.el['type'] = this.type() as Components.MyButtonScoped['type'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['buttonType'] = this.buttonType() as Components.MyButtonScoped['buttonType']; });
+    effect(() => { this.el['color'] = this.color() as Components.MyButtonScoped['color']; });
+    effect(() => { this.el['disabled'] = this.disabled() as Components.MyButtonScoped['disabled']; });
+    effect(() => { this.el['download'] = this.download() as Components.MyButtonScoped['download']; });
+    effect(() => { this.el['expand'] = this.expand() as Components.MyButtonScoped['expand']; });
+    effect(() => { this.el['fill'] = this.fill() as Components.MyButtonScoped['fill']; });
+    effect(() => { this.el['href'] = this.href() as Components.MyButtonScoped['href']; });
+    effect(() => { this.el['mode'] = this.mode() as Components.MyButtonScoped['mode']; });
+    effect(() => { this.el['rel'] = this.rel() as Components.MyButtonScoped['rel']; });
+    effect(() => { this.el['shape'] = this.shape() as Components.MyButtonScoped['shape']; });
+    effect(() => { this.el['size'] = this.size() as Components.MyButtonScoped['size']; });
+    effect(() => { this.el['strong'] = this.strong() as Components.MyButtonScoped['strong']; });
+    effect(() => { this.el['target'] = this.target() as Components.MyButtonScoped['target']; });
+    effect(() => { this.el['type'] = this.type() as Components.MyButtonScoped['type']; });
   }
 }
-
-
-export declare interface MyButtonScoped extends Omit<Components.MyButtonScoped, 'buttonType' | 'color' | 'disabled' | 'download' | 'expand' | 'fill' | 'href' | 'mode' | 'rel' | 'shape' | 'size' | 'strong' | 'target' | 'type'> {}
 
 
 @ProxyCmp({
@@ -155,27 +145,23 @@ export class MyCheckbox {
   readonly ionFocus = output<CustomEvent<void>>();
   readonly ionBlur = output<CustomEvent<void>>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['alignment'] = this.alignment() as Components.MyCheckbox['alignment'];
-      this.el['checked'] = this.checked() as Components.MyCheckbox['checked'];
-      this.el['color'] = this.color() as Components.MyCheckbox['color'];
-      this.el['disabled'] = this.disabled() as Components.MyCheckbox['disabled'];
-      this.el['indeterminate'] = this.indeterminate() as Components.MyCheckbox['indeterminate'];
-      this.el['justify'] = this.justify() as Components.MyCheckbox['justify'];
-      this.el['labelPlacement'] = this.labelPlacement() as Components.MyCheckbox['labelPlacement'];
-      this.el['mode'] = this.mode() as Components.MyCheckbox['mode'];
-      this.el['name'] = this.name() as Components.MyCheckbox['name'];
-      this.el['value'] = this.value() as Components.MyCheckbox['value'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['alignment'] = this.alignment() as Components.MyCheckbox['alignment']; });
+    effect(() => { this.el['checked'] = this.checked() as Components.MyCheckbox['checked']; });
+    effect(() => { this.el['color'] = this.color() as Components.MyCheckbox['color']; });
+    effect(() => { this.el['disabled'] = this.disabled() as Components.MyCheckbox['disabled']; });
+    effect(() => { this.el['indeterminate'] = this.indeterminate() as Components.MyCheckbox['indeterminate']; });
+    effect(() => { this.el['justify'] = this.justify() as Components.MyCheckbox['justify']; });
+    effect(() => { this.el['labelPlacement'] = this.labelPlacement() as Components.MyCheckbox['labelPlacement']; });
+    effect(() => { this.el['mode'] = this.mode() as Components.MyCheckbox['mode']; });
+    effect(() => { this.el['name'] = this.name() as Components.MyCheckbox['name']; });
+    effect(() => { this.el['value'] = this.value() as Components.MyCheckbox['value']; });
   }
 }
 
 
 import type { CheckboxChangeEventDetail as IMyCheckboxCheckboxChangeEventDetail } from 'component-library/components';
 import type { CheckboxChangeNestedEventDetail as IMyCheckboxCheckboxChangeNestedEventDetail } from 'component-library/components';
-
-export declare interface MyCheckbox extends Omit<Components.MyCheckbox, 'alignment' | 'checked' | 'color' | 'disabled' | 'indeterminate' | 'justify' | 'labelPlacement' | 'mode' | 'name' | 'value'> {}
 
 
 @ProxyCmp({
@@ -194,19 +180,14 @@ export class MyComplexProps {
   readonly quux = input<Components.MyComplexProps['quux']>();
   readonly waldo = input<Components.MyComplexProps['waldo']>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['baz'] = this.baz() as Components.MyComplexProps['baz'];
-      this.el['foo'] = this.foo() as Components.MyComplexProps['foo'];
-      this.el['grault'] = this.grault() as Components.MyComplexProps['grault'];
-      this.el['quux'] = this.quux() as Components.MyComplexProps['quux'];
-      this.el['waldo'] = this.waldo() as Components.MyComplexProps['waldo'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['baz'] = this.baz() as Components.MyComplexProps['baz']; });
+    effect(() => { this.el['foo'] = this.foo() as Components.MyComplexProps['foo']; });
+    effect(() => { this.el['grault'] = this.grault() as Components.MyComplexProps['grault']; });
+    effect(() => { this.el['quux'] = this.quux() as Components.MyComplexProps['quux']; });
+    effect(() => { this.el['waldo'] = this.waldo() as Components.MyComplexProps['waldo']; });
   }
 }
-
-
-export declare interface MyComplexProps extends Omit<Components.MyComplexProps, 'baz' | 'foo' | 'grault' | 'quux' | 'waldo'> {}
 
 
 @ProxyCmp({
@@ -225,19 +206,14 @@ export class MyComplexPropsScoped {
   readonly quux = input<Components.MyComplexPropsScoped['quux']>();
   readonly waldo = input<Components.MyComplexPropsScoped['waldo']>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['baz'] = this.baz() as Components.MyComplexPropsScoped['baz'];
-      this.el['foo'] = this.foo() as Components.MyComplexPropsScoped['foo'];
-      this.el['grault'] = this.grault() as Components.MyComplexPropsScoped['grault'];
-      this.el['quux'] = this.quux() as Components.MyComplexPropsScoped['quux'];
-      this.el['waldo'] = this.waldo() as Components.MyComplexPropsScoped['waldo'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['baz'] = this.baz() as Components.MyComplexPropsScoped['baz']; });
+    effect(() => { this.el['foo'] = this.foo() as Components.MyComplexPropsScoped['foo']; });
+    effect(() => { this.el['grault'] = this.grault() as Components.MyComplexPropsScoped['grault']; });
+    effect(() => { this.el['quux'] = this.quux() as Components.MyComplexPropsScoped['quux']; });
+    effect(() => { this.el['waldo'] = this.waldo() as Components.MyComplexPropsScoped['waldo']; });
   }
 }
-
-
-export declare interface MyComplexPropsScoped extends Omit<Components.MyComplexPropsScoped, 'baz' | 'foo' | 'grault' | 'quux' | 'waldo'> {}
 
 
 @ProxyCmp({
@@ -254,17 +230,12 @@ export class MyComponent {
   readonly last = input<Components.MyComponent['last']>();
   readonly middleName = input<Components.MyComponent['middleName']>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['first'] = this.first() as Components.MyComponent['first'];
-      this.el['last'] = this.last() as Components.MyComponent['last'];
-      this.el['middleName'] = this.middleName() as Components.MyComponent['middleName'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['first'] = this.first() as Components.MyComponent['first']; });
+    effect(() => { this.el['last'] = this.last() as Components.MyComponent['last']; });
+    effect(() => { this.el['middleName'] = this.middleName() as Components.MyComponent['middleName']; });
   }
 }
-
-
-export declare interface MyComponent extends Omit<Components.MyComponent, 'first' | 'last' | 'middleName'> {}
 
 
 @ProxyCmp({
@@ -278,12 +249,9 @@ export declare interface MyComponent extends Omit<Components.MyComponent, 'first
 export class MyComponentDelegatesFocus {
   protected el: HTMLMyComponentDelegatesFocusElement;
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
+    this.el = r.nativeElement;
   }
 }
-
-
-export declare interface MyComponentDelegatesFocus extends Components.MyComponentDelegatesFocus {}
 
 
 @ProxyCmp({
@@ -301,19 +269,15 @@ export class MyComponentScoped {
   readonly middleName = input<Components.MyComponentScoped['middleName']>();
   readonly myCustomEvent = output<CustomEvent<IMyComponentScopedIMyComponent.someVar>>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['first'] = this.first() as Components.MyComponentScoped['first'];
-      this.el['last'] = this.last() as Components.MyComponentScoped['last'];
-      this.el['middleName'] = this.middleName() as Components.MyComponentScoped['middleName'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['first'] = this.first() as Components.MyComponentScoped['first']; });
+    effect(() => { this.el['last'] = this.last() as Components.MyComponentScoped['last']; });
+    effect(() => { this.el['middleName'] = this.middleName() as Components.MyComponentScoped['middleName']; });
   }
 }
 
 
 import type { IMyComponent as IMyComponentScopedIMyComponent } from 'component-library/components';
-
-export declare interface MyComponentScoped extends Omit<Components.MyComponentScoped, 'first' | 'last' | 'middleName'> {}
 
 
 @ProxyCmp({
@@ -329,20 +293,14 @@ export class MyCounter {
   readonly startValue = input<Components.MyCounter['startValue']>();
   readonly count = output<CustomEvent<number>>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['startValue'] = this.startValue() as Components.MyCounter['startValue'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['startValue'] = this.startValue() as Components.MyCounter['startValue']; });
   }
 }
 
 
-export declare interface MyCounter extends Omit<Components.MyCounter, 'startValue'> {}
-
-
 @ProxyCmp({
-  defineCustomElementFn: defineMyInput,
-  methods: ['setFocus', 'getInputElement']
+  defineCustomElementFn: defineMyInput
 })
 @Component({
   selector: 'my-input',
@@ -383,48 +341,43 @@ export class MyInput {
   readonly myBlur = output<CustomEvent<void>>();
   readonly myFocus = output<CustomEvent<void>>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['accept'] = this.accept() as Components.MyInput['accept'];
-      this.el['autocapitalize'] = this.autocapitalize() as Components.MyInput['autocapitalize'];
-      this.el['autocomplete'] = this.autocomplete() as Components.MyInput['autocomplete'];
-      this.el['autocorrect'] = this.autocorrect() as Components.MyInput['autocorrect'];
-      this.el['autofocus'] = this.autofocus() as Components.MyInput['autofocus'];
-      this.el['clearInput'] = this.clearInput() as Components.MyInput['clearInput'];
-      this.el['clearOnEdit'] = this.clearOnEdit() as Components.MyInput['clearOnEdit'];
-      this.el['color'] = this.color() as Components.MyInput['color'];
-      this.el['disabled'] = this.disabled() as Components.MyInput['disabled'];
-      this.el['enterkeyhint'] = this.enterkeyhint() as Components.MyInput['enterkeyhint'];
-      this.el['inputmode'] = this.inputmode() as Components.MyInput['inputmode'];
-      this.el['max'] = this.max() as Components.MyInput['max'];
-      this.el['maxlength'] = this.maxlength() as Components.MyInput['maxlength'];
-      this.el['min'] = this.min() as Components.MyInput['min'];
-      this.el['minlength'] = this.minlength() as Components.MyInput['minlength'];
-      this.el['mode'] = this.mode() as Components.MyInput['mode'];
-      this.el['multiple'] = this.multiple() as Components.MyInput['multiple'];
-      this.el['name'] = this.name() as Components.MyInput['name'];
-      this.el['pattern'] = this.pattern() as Components.MyInput['pattern'];
-      this.el['placeholder'] = this.placeholder() as Components.MyInput['placeholder'];
-      this.el['readonly'] = this.readonly() as Components.MyInput['readonly'];
-      this.el['required'] = this.required() as Components.MyInput['required'];
-      this.el['size'] = this.size() as Components.MyInput['size'];
-      this.el['spellcheck'] = this.spellcheck() as Components.MyInput['spellcheck'];
-      this.el['step'] = this.step() as Components.MyInput['step'];
-      this.el['type'] = this.type() as Components.MyInput['type'];
-      this.el['value'] = this.value() as Components.MyInput['value'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['accept'] = this.accept() as Components.MyInput['accept']; });
+    effect(() => { this.el['autocapitalize'] = this.autocapitalize() as Components.MyInput['autocapitalize']; });
+    effect(() => { this.el['autocomplete'] = this.autocomplete() as Components.MyInput['autocomplete']; });
+    effect(() => { this.el['autocorrect'] = this.autocorrect() as Components.MyInput['autocorrect']; });
+    effect(() => { this.el['autofocus'] = this.autofocus() as Components.MyInput['autofocus']; });
+    effect(() => { this.el['clearInput'] = this.clearInput() as Components.MyInput['clearInput']; });
+    effect(() => { this.el['clearOnEdit'] = this.clearOnEdit() as Components.MyInput['clearOnEdit']; });
+    effect(() => { this.el['color'] = this.color() as Components.MyInput['color']; });
+    effect(() => { this.el['disabled'] = this.disabled() as Components.MyInput['disabled']; });
+    effect(() => { this.el['enterkeyhint'] = this.enterkeyhint() as Components.MyInput['enterkeyhint']; });
+    effect(() => { this.el['inputmode'] = this.inputmode() as Components.MyInput['inputmode']; });
+    effect(() => { this.el['max'] = this.max() as Components.MyInput['max']; });
+    effect(() => { this.el['maxlength'] = this.maxlength() as Components.MyInput['maxlength']; });
+    effect(() => { this.el['min'] = this.min() as Components.MyInput['min']; });
+    effect(() => { this.el['minlength'] = this.minlength() as Components.MyInput['minlength']; });
+    effect(() => { this.el['mode'] = this.mode() as Components.MyInput['mode']; });
+    effect(() => { this.el['multiple'] = this.multiple() as Components.MyInput['multiple']; });
+    effect(() => { this.el['name'] = this.name() as Components.MyInput['name']; });
+    effect(() => { this.el['pattern'] = this.pattern() as Components.MyInput['pattern']; });
+    effect(() => { this.el['placeholder'] = this.placeholder() as Components.MyInput['placeholder']; });
+    effect(() => { this.el['readonly'] = this.readonly() as Components.MyInput['readonly']; });
+    effect(() => { this.el['required'] = this.required() as Components.MyInput['required']; });
+    effect(() => { this.el['size'] = this.size() as Components.MyInput['size']; });
+    effect(() => { this.el['spellcheck'] = this.spellcheck() as Components.MyInput['spellcheck']; });
+    effect(() => { this.el['step'] = this.step() as Components.MyInput['step']; });
+    effect(() => { this.el['type'] = this.type() as Components.MyInput['type']; });
+    effect(() => { this.el['value'] = this.value() as Components.MyInput['value']; });
   }
 }
 
 
 import type { InputChangeEventDetail as IMyInputInputChangeEventDetail } from 'component-library/components';
 
-export declare interface MyInput extends Omit<Components.MyInput, 'accept' | 'autocapitalize' | 'autocomplete' | 'autocorrect' | 'autofocus' | 'clearInput' | 'clearOnEdit' | 'color' | 'disabled' | 'enterkeyhint' | 'inputmode' | 'max' | 'maxlength' | 'min' | 'minlength' | 'mode' | 'multiple' | 'name' | 'pattern' | 'placeholder' | 'readonly' | 'required' | 'size' | 'spellcheck' | 'step' | 'type' | 'value'> {}
-
 
 @ProxyCmp({
-  defineCustomElementFn: defineMyInputScoped,
-  methods: ['setFocus', 'getInputElement']
+  defineCustomElementFn: defineMyInputScoped
 })
 @Component({
   selector: 'my-input-scoped',
@@ -465,43 +418,39 @@ export class MyInputScoped {
   readonly myBlur = output<CustomEvent<void>>();
   readonly myFocus = output<CustomEvent<void>>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['accept'] = this.accept() as Components.MyInputScoped['accept'];
-      this.el['autocapitalize'] = this.autocapitalize() as Components.MyInputScoped['autocapitalize'];
-      this.el['autocomplete'] = this.autocomplete() as Components.MyInputScoped['autocomplete'];
-      this.el['autocorrect'] = this.autocorrect() as Components.MyInputScoped['autocorrect'];
-      this.el['autofocus'] = this.autofocus() as Components.MyInputScoped['autofocus'];
-      this.el['clearInput'] = this.clearInput() as Components.MyInputScoped['clearInput'];
-      this.el['clearOnEdit'] = this.clearOnEdit() as Components.MyInputScoped['clearOnEdit'];
-      this.el['color'] = this.color() as Components.MyInputScoped['color'];
-      this.el['disabled'] = this.disabled() as Components.MyInputScoped['disabled'];
-      this.el['enterkeyhint'] = this.enterkeyhint() as Components.MyInputScoped['enterkeyhint'];
-      this.el['inputmode'] = this.inputmode() as Components.MyInputScoped['inputmode'];
-      this.el['max'] = this.max() as Components.MyInputScoped['max'];
-      this.el['maxlength'] = this.maxlength() as Components.MyInputScoped['maxlength'];
-      this.el['min'] = this.min() as Components.MyInputScoped['min'];
-      this.el['minlength'] = this.minlength() as Components.MyInputScoped['minlength'];
-      this.el['mode'] = this.mode() as Components.MyInputScoped['mode'];
-      this.el['multiple'] = this.multiple() as Components.MyInputScoped['multiple'];
-      this.el['name'] = this.name() as Components.MyInputScoped['name'];
-      this.el['pattern'] = this.pattern() as Components.MyInputScoped['pattern'];
-      this.el['placeholder'] = this.placeholder() as Components.MyInputScoped['placeholder'];
-      this.el['readonly'] = this.readonly() as Components.MyInputScoped['readonly'];
-      this.el['required'] = this.required() as Components.MyInputScoped['required'];
-      this.el['size'] = this.size() as Components.MyInputScoped['size'];
-      this.el['spellcheck'] = this.spellcheck() as Components.MyInputScoped['spellcheck'];
-      this.el['step'] = this.step() as Components.MyInputScoped['step'];
-      this.el['type'] = this.type() as Components.MyInputScoped['type'];
-      this.el['value'] = this.value() as Components.MyInputScoped['value'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['accept'] = this.accept() as Components.MyInputScoped['accept']; });
+    effect(() => { this.el['autocapitalize'] = this.autocapitalize() as Components.MyInputScoped['autocapitalize']; });
+    effect(() => { this.el['autocomplete'] = this.autocomplete() as Components.MyInputScoped['autocomplete']; });
+    effect(() => { this.el['autocorrect'] = this.autocorrect() as Components.MyInputScoped['autocorrect']; });
+    effect(() => { this.el['autofocus'] = this.autofocus() as Components.MyInputScoped['autofocus']; });
+    effect(() => { this.el['clearInput'] = this.clearInput() as Components.MyInputScoped['clearInput']; });
+    effect(() => { this.el['clearOnEdit'] = this.clearOnEdit() as Components.MyInputScoped['clearOnEdit']; });
+    effect(() => { this.el['color'] = this.color() as Components.MyInputScoped['color']; });
+    effect(() => { this.el['disabled'] = this.disabled() as Components.MyInputScoped['disabled']; });
+    effect(() => { this.el['enterkeyhint'] = this.enterkeyhint() as Components.MyInputScoped['enterkeyhint']; });
+    effect(() => { this.el['inputmode'] = this.inputmode() as Components.MyInputScoped['inputmode']; });
+    effect(() => { this.el['max'] = this.max() as Components.MyInputScoped['max']; });
+    effect(() => { this.el['maxlength'] = this.maxlength() as Components.MyInputScoped['maxlength']; });
+    effect(() => { this.el['min'] = this.min() as Components.MyInputScoped['min']; });
+    effect(() => { this.el['minlength'] = this.minlength() as Components.MyInputScoped['minlength']; });
+    effect(() => { this.el['mode'] = this.mode() as Components.MyInputScoped['mode']; });
+    effect(() => { this.el['multiple'] = this.multiple() as Components.MyInputScoped['multiple']; });
+    effect(() => { this.el['name'] = this.name() as Components.MyInputScoped['name']; });
+    effect(() => { this.el['pattern'] = this.pattern() as Components.MyInputScoped['pattern']; });
+    effect(() => { this.el['placeholder'] = this.placeholder() as Components.MyInputScoped['placeholder']; });
+    effect(() => { this.el['readonly'] = this.readonly() as Components.MyInputScoped['readonly']; });
+    effect(() => { this.el['required'] = this.required() as Components.MyInputScoped['required']; });
+    effect(() => { this.el['size'] = this.size() as Components.MyInputScoped['size']; });
+    effect(() => { this.el['spellcheck'] = this.spellcheck() as Components.MyInputScoped['spellcheck']; });
+    effect(() => { this.el['step'] = this.step() as Components.MyInputScoped['step']; });
+    effect(() => { this.el['type'] = this.type() as Components.MyInputScoped['type']; });
+    effect(() => { this.el['value'] = this.value() as Components.MyInputScoped['value']; });
   }
 }
 
 
 import type { InputChangeEventDetail as IMyInputScopedInputChangeEventDetail } from 'component-library/components';
-
-export declare interface MyInputScoped extends Omit<Components.MyInputScoped, 'accept' | 'autocapitalize' | 'autocomplete' | 'autocorrect' | 'autofocus' | 'clearInput' | 'clearOnEdit' | 'color' | 'disabled' | 'enterkeyhint' | 'inputmode' | 'max' | 'maxlength' | 'min' | 'minlength' | 'mode' | 'multiple' | 'name' | 'pattern' | 'placeholder' | 'readonly' | 'required' | 'size' | 'spellcheck' | 'step' | 'type' | 'value'> {}
 
 
 @ProxyCmp({
@@ -515,12 +464,9 @@ export declare interface MyInputScoped extends Omit<Components.MyInputScoped, 'a
 export class MyList {
   protected el: HTMLMyListElement;
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
+    this.el = r.nativeElement;
   }
 }
-
-
-export declare interface MyList extends Components.MyList {}
 
 
 @ProxyCmp({
@@ -534,12 +480,9 @@ export declare interface MyList extends Components.MyList {}
 export class MyListItem {
   protected el: HTMLMyListItemElement;
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
+    this.el = r.nativeElement;
   }
 }
-
-
-export declare interface MyListItem extends Components.MyListItem {}
 
 
 @ProxyCmp({
@@ -553,12 +496,9 @@ export declare interface MyListItem extends Components.MyListItem {}
 export class MyListItemScoped {
   protected el: HTMLMyListItemScopedElement;
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
+    this.el = r.nativeElement;
   }
 }
-
-
-export declare interface MyListItemScoped extends Components.MyListItemScoped {}
 
 
 @ProxyCmp({
@@ -572,17 +512,13 @@ export declare interface MyListItemScoped extends Components.MyListItemScoped {}
 export class MyListScoped {
   protected el: HTMLMyListScopedElement;
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
+    this.el = r.nativeElement;
   }
 }
 
 
-export declare interface MyListScoped extends Components.MyListScoped {}
-
-
 @ProxyCmp({
-  defineCustomElementFn: defineMyPopover,
-  methods: ['present', 'dismiss', 'onDidDismiss', 'onWillDismiss']
+  defineCustomElementFn: defineMyPopover
 })
 @Component({
   selector: 'my-popover',
@@ -606,26 +542,22 @@ export class MyPopover {
   readonly myPopoverWillDismiss = output<CustomEvent<IMyPopoverOverlayEventDetail>>();
   readonly myPopoverDidDismiss = output<CustomEvent<IMyPopoverOverlayEventDetail>>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['animated'] = this.animated() as Components.MyPopover['animated'];
-      this.el['backdropDismiss'] = this.backdropDismiss() as Components.MyPopover['backdropDismiss'];
-      this.el['component'] = this.component() as Components.MyPopover['component'];
-      this.el['componentProps'] = this.componentProps() as Components.MyPopover['componentProps'];
-      this.el['cssClass'] = this.cssClass() as Components.MyPopover['cssClass'];
-      this.el['event'] = this.event() as Components.MyPopover['event'];
-      this.el['keyboardClose'] = this.keyboardClose() as Components.MyPopover['keyboardClose'];
-      this.el['mode'] = this.mode() as Components.MyPopover['mode'];
-      this.el['showBackdrop'] = this.showBackdrop() as Components.MyPopover['showBackdrop'];
-      this.el['translucent'] = this.translucent() as Components.MyPopover['translucent'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['animated'] = this.animated() as Components.MyPopover['animated']; });
+    effect(() => { this.el['backdropDismiss'] = this.backdropDismiss() as Components.MyPopover['backdropDismiss']; });
+    effect(() => { this.el['component'] = this.component() as Components.MyPopover['component']; });
+    effect(() => { this.el['componentProps'] = this.componentProps() as Components.MyPopover['componentProps']; });
+    effect(() => { this.el['cssClass'] = this.cssClass() as Components.MyPopover['cssClass']; });
+    effect(() => { this.el['event'] = this.event() as Components.MyPopover['event']; });
+    effect(() => { this.el['keyboardClose'] = this.keyboardClose() as Components.MyPopover['keyboardClose']; });
+    effect(() => { this.el['mode'] = this.mode() as Components.MyPopover['mode']; });
+    effect(() => { this.el['showBackdrop'] = this.showBackdrop() as Components.MyPopover['showBackdrop']; });
+    effect(() => { this.el['translucent'] = this.translucent() as Components.MyPopover['translucent']; });
   }
 }
 
 
 import type { OverlayEventDetail as IMyPopoverOverlayEventDetail } from 'component-library/components';
-
-export declare interface MyPopover extends Omit<Components.MyPopover, 'animated' | 'backdropDismiss' | 'component' | 'componentProps' | 'cssClass' | 'event' | 'keyboardClose' | 'mode' | 'showBackdrop' | 'translucent'> {}
 
 
 @ProxyCmp({
@@ -649,22 +581,17 @@ export class MyRadio {
   readonly ionFocus = output<CustomEvent<void>>();
   readonly ionBlur = output<CustomEvent<void>>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['alignment'] = this.alignment() as Components.MyRadio['alignment'];
-      this.el['color'] = this.color() as Components.MyRadio['color'];
-      this.el['disabled'] = this.disabled() as Components.MyRadio['disabled'];
-      this.el['justify'] = this.justify() as Components.MyRadio['justify'];
-      this.el['labelPlacement'] = this.labelPlacement() as Components.MyRadio['labelPlacement'];
-      this.el['mode'] = this.mode() as Components.MyRadio['mode'];
-      this.el['name'] = this.name() as Components.MyRadio['name'];
-      this.el['value'] = this.value() as Components.MyRadio['value'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['alignment'] = this.alignment() as Components.MyRadio['alignment']; });
+    effect(() => { this.el['color'] = this.color() as Components.MyRadio['color']; });
+    effect(() => { this.el['disabled'] = this.disabled() as Components.MyRadio['disabled']; });
+    effect(() => { this.el['justify'] = this.justify() as Components.MyRadio['justify']; });
+    effect(() => { this.el['labelPlacement'] = this.labelPlacement() as Components.MyRadio['labelPlacement']; });
+    effect(() => { this.el['mode'] = this.mode() as Components.MyRadio['mode']; });
+    effect(() => { this.el['name'] = this.name() as Components.MyRadio['name']; });
+    effect(() => { this.el['value'] = this.value() as Components.MyRadio['value']; });
   }
 }
-
-
-export declare interface MyRadio extends Omit<Components.MyRadio, 'alignment' | 'color' | 'disabled' | 'justify' | 'labelPlacement' | 'mode' | 'name' | 'value'> {}
 
 
 @ProxyCmp({
@@ -683,20 +610,16 @@ export class MyRadioGroup {
   readonly value = input<Components.MyRadioGroup['value']>();
   readonly myChange = output<CustomEvent<IMyRadioGroupRadioGroupChangeEventDetail>>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['allowEmptySelection'] = this.allowEmptySelection() as Components.MyRadioGroup['allowEmptySelection'];
-      this.el['compareWith'] = this.compareWith() as Components.MyRadioGroup['compareWith'];
-      this.el['name'] = this.name() as Components.MyRadioGroup['name'];
-      this.el['value'] = this.value() as Components.MyRadioGroup['value'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['allowEmptySelection'] = this.allowEmptySelection() as Components.MyRadioGroup['allowEmptySelection']; });
+    effect(() => { this.el['compareWith'] = this.compareWith() as Components.MyRadioGroup['compareWith']; });
+    effect(() => { this.el['name'] = this.name() as Components.MyRadioGroup['name']; });
+    effect(() => { this.el['value'] = this.value() as Components.MyRadioGroup['value']; });
   }
 }
 
 
 import type { RadioGroupChangeEventDetail as IMyRadioGroupRadioGroupChangeEventDetail } from 'component-library/components';
-
-export declare interface MyRadioGroup extends Omit<Components.MyRadioGroup, 'allowEmptySelection' | 'compareWith' | 'name' | 'value'> {}
 
 
 @ProxyCmp({
@@ -726,29 +649,25 @@ export class MyRange {
   readonly myFocus = output<CustomEvent<void>>();
   readonly myBlur = output<CustomEvent<void>>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['color'] = this.color() as Components.MyRange['color'];
-      this.el['debounce'] = this.debounce() as Components.MyRange['debounce'];
-      this.el['disabled'] = this.disabled() as Components.MyRange['disabled'];
-      this.el['dualKnobs'] = this.dualKnobs() as Components.MyRange['dualKnobs'];
-      this.el['max'] = this.max() as Components.MyRange['max'];
-      this.el['min'] = this.min() as Components.MyRange['min'];
-      this.el['mode'] = this.mode() as Components.MyRange['mode'];
-      this.el['name'] = this.name() as Components.MyRange['name'];
-      this.el['pin'] = this.pin() as Components.MyRange['pin'];
-      this.el['snaps'] = this.snaps() as Components.MyRange['snaps'];
-      this.el['step'] = this.step() as Components.MyRange['step'];
-      this.el['ticks'] = this.ticks() as Components.MyRange['ticks'];
-      this.el['value'] = this.value() as Components.MyRange['value'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['color'] = this.color() as Components.MyRange['color']; });
+    effect(() => { this.el['debounce'] = this.debounce() as Components.MyRange['debounce']; });
+    effect(() => { this.el['disabled'] = this.disabled() as Components.MyRange['disabled']; });
+    effect(() => { this.el['dualKnobs'] = this.dualKnobs() as Components.MyRange['dualKnobs']; });
+    effect(() => { this.el['max'] = this.max() as Components.MyRange['max']; });
+    effect(() => { this.el['min'] = this.min() as Components.MyRange['min']; });
+    effect(() => { this.el['mode'] = this.mode() as Components.MyRange['mode']; });
+    effect(() => { this.el['name'] = this.name() as Components.MyRange['name']; });
+    effect(() => { this.el['pin'] = this.pin() as Components.MyRange['pin']; });
+    effect(() => { this.el['snaps'] = this.snaps() as Components.MyRange['snaps']; });
+    effect(() => { this.el['step'] = this.step() as Components.MyRange['step']; });
+    effect(() => { this.el['ticks'] = this.ticks() as Components.MyRange['ticks']; });
+    effect(() => { this.el['value'] = this.value() as Components.MyRange['value']; });
   }
 }
 
 
 import type { RangeChangeEventDetail as IMyRangeRangeChangeEventDetail } from 'component-library/components';
-
-export declare interface MyRange extends Omit<Components.MyRange, 'color' | 'debounce' | 'disabled' | 'dualKnobs' | 'max' | 'min' | 'mode' | 'name' | 'pin' | 'snaps' | 'step' | 'ticks' | 'value'> {}
 
 
 @ProxyCmp({
@@ -762,12 +681,9 @@ export declare interface MyRange extends Omit<Components.MyRange, 'color' | 'deb
 export class MyToggle {
   protected el: HTMLMyToggleElement;
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
+    this.el = r.nativeElement;
   }
 }
-
-
-export declare interface MyToggle extends Components.MyToggle {}
 
 
 @ProxyCmp({
@@ -782,15 +698,10 @@ export class MyToggleContent {
   protected el: HTMLMyToggleContentElement;
   readonly visible = input<Components.MyToggleContent['visible']>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['visible'] = this.visible() as Components.MyToggleContent['visible'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['visible'] = this.visible() as Components.MyToggleContent['visible']; });
   }
 }
-
-
-export declare interface MyToggleContent extends Omit<Components.MyToggleContent, 'visible'> {}
 
 
 @ProxyCmp({
@@ -805,14 +716,9 @@ export class MyTransformTest {
   protected el: HTMLMyTransformTestElement;
   readonly message = input<Components.MyTransformTest['message']>();
   constructor(r: ElementRef) {
-        this.el = r.nativeElement;
-    effect(() => {
-      this.el['message'] = this.message() as Components.MyTransformTest['message'];
-    });
+    this.el = r.nativeElement;
+    effect(() => { this.el['message'] = this.message() as Components.MyTransformTest['message']; });
   }
 }
-
-
-export declare interface MyTransformTest extends Omit<Components.MyTransformTest, 'message'> {}
 
 
